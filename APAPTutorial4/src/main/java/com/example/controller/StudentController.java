@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,17 +123,26 @@ public class StudentController
         return view;
     }
     
-    @RequestMapping (value = "/student/update/submit", method = RequestMethod.POST)
-    public String updateSubmit (
-            @RequestParam(value = "npm", required = false) String npm,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "gpa", required = false) double gpa)
-    {
-        StudentModel student = new StudentModel (npm, name, gpa);
-        studentDAO.updateStudent (student);
-
-        return "success-update";
+    // use req param
+//    @RequestMapping (value = "/student/update/submit", method = RequestMethod.POST)
+//    public String updateSubmit (
+//            @RequestParam(value = "npm", required = false) String npm,
+//            @RequestParam(value = "name", required = false) String name,
+//            @RequestParam(value = "gpa", required = false) double gpa)
+//    {
+//        StudentModel student = new StudentModel (npm, name, gpa);
+//        studentDAO.updateStudent (student);
+//
+//        return "success-update";
+//    }
+    
+    //use model student
+    @RequestMapping(value="/student/update/submit", method= RequestMethod.POST)
+    public String updateSubmit(@ModelAttribute StudentModel student) {
+    		studentDAO.updateStudent (student);
+    		return "success-update";
     }
+    
     
 //    @RequestMapping (value = "/student/update/submit", method = RequestMethod.POST)
 //    public String updateSubmit (@ModelAttribute ("student") StudentModel student, BindingResult binding)
